@@ -1,6 +1,8 @@
 package banana.builtin;
 
 import banana.internal.annotation.BananaModule;
+import banana.internal.annotation.NonNull;
+import banana.internal.annotation.Nullable;
 
 @BananaModule(
     exportedClasses = {
@@ -33,15 +35,15 @@ public final class ModuleBuiltin {
         System.out.print(d);
     }
 
-    public static void print(char[] s) {
+    public static void print(@NonNull char[] s) {
         System.out.print(s);
     }
 
-    public static void print(String s) {
+    public static void print(@Nullable String s) {
         System.out.print(s);
     }
 
-    public static void print(Object obj) {
+    public static void print(@Nullable Object obj) {
         System.out.print(obj);
     }
 
@@ -73,15 +75,15 @@ public final class ModuleBuiltin {
         System.out.println(x);
     }
 
-    public static void println(char[] x) {
+    public static void println(@NonNull char[] x) {
         System.out.println(x);
     }
 
-    public static void println(String x) {
+    public static void println(@Nullable String x) {
         System.out.println(x);
     }
 
-    public static void println(Object x) {
+    public static void println(@Nullable Object x) {
         System.out.println(x);
     }
 }
