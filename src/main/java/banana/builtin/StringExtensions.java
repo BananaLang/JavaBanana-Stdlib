@@ -4,18 +4,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import banana.internal.annotation.ExtensionMethod;
+import banana.internal.annotation.NonNull;
+import banana.internal.annotation.Nullable;
 
 public final class StringExtensions {
     private StringExtensions() {
     }
 
     @ExtensionMethod
-    public static String add(String thiz, String other) {
-        return thiz.concat(other);
+    @NonNull
+    public static String add(@NonNull String thiz, @Nullable Object other) {
+        return thiz.concat(String.valueOf(other));
     }
 
     @ExtensionMethod
-    public static String multiply(String thiz, int count) {
+    @NonNull
+    public static String multiply(@NonNull String thiz, int count) {
         if (count < 0) {
             throw new IllegalArgumentException("count is negative: " + count);
         }
