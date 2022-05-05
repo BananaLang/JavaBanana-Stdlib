@@ -8,9 +8,26 @@ import banana.internal.annotation.Nullable;
     exportedClasses = {
         Int.class,
         Int32.class
+    },
+    publicImports = {
+        "banana/builtin/StringExtensions.*"
     }
 )
 public final class ModuleBuiltin {
+    public static final int JVM_VERSION;
+
+    static {
+        String jvmVersionStr = System.getProperty("java.specification.version");
+        if (jvmVersionStr.startsWith("1.")) {
+            JVM_VERSION = Integer.parseInt(jvmVersionStr.substring(2));
+        } else {
+            JVM_VERSION = Integer.parseInt(jvmVersionStr);
+        }
+    }
+
+    private ModuleBuiltin() {
+    }
+
     public static void print(boolean b) {
         System.out.print(b);
     }

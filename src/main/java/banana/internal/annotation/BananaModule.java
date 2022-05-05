@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface BananaModule {
     public Class<?>[] exportedClasses() default {};
+    public String[] publicImports() default {};
 }
