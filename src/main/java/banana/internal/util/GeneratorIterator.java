@@ -3,20 +3,21 @@ package banana.internal.util;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public final class IteratorFromAdvanceable<E> implements Iterator<E> {
-    private final AdvanceableIterator<E> iterator;
+public final class GeneratorIterator<E> implements Iterator<E> {
+    private final GeneratorFunction<E> fn;
+    private final int[] state = {0};
     private boolean valueReady;
     private E next;
 
-    public IteratorFromAdvanceable(AdvanceableIterator<E> iterator) {
-        this.iterator = iterator;
+    public GeneratorIterator(GeneratorFunction<E> fn) {
+        this.fn = fn;
     }
 
     @Override
     public boolean hasNext() {
         if (!valueReady) {
             try {
-                next = iterator.advance();
+                next = fn.advance(state);
                 valueReady = true;
             } catch (NoSuchElementException e) {
                 valueReady = false;
@@ -28,7 +29,7 @@ public final class IteratorFromAdvanceable<E> implements Iterator<E> {
     @Override
     public E next() {
         if (!valueReady) {
-            next = iterator.advance();
+            next = fn.advance(state);
         }
         E value = next;
         valueReady = false;

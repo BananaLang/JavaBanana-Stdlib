@@ -14,7 +14,11 @@ public class InternalUtil {
         throw new NullPointerException("Non-null assertion failed because " + src + " evaluated to null");
     }
 
-    public static <E> Iterable<E> $createGenerator(AdvanceableIterator<E> gen) {
-        return new IterableFromIterator<>(new IteratorFromAdvanceable<>(gen));
+    public static <E> Iterable<E> $createGenerator(GeneratorFunction<E> gen) {
+        return new IterableFromIterator<>(new GeneratorIterator<>(gen));
+    }
+
+    public static void $generatorComplete() {
+        throw new GeneratorComplete();
     }
 }
