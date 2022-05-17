@@ -1,7 +1,6 @@
 package banana.internal.util;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public final class GeneratorIterator<E> implements Iterator<E> {
     private final GeneratorFunction<E> fn;
@@ -19,7 +18,7 @@ public final class GeneratorIterator<E> implements Iterator<E> {
             try {
                 next = fn.advance(state);
                 valueReady = true;
-            } catch (NoSuchElementException e) {
+            } catch (GeneratorComplete e) {
                 valueReady = false;
             }
         }
