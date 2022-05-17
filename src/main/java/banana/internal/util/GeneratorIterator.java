@@ -15,12 +15,8 @@ public final class GeneratorIterator<E> implements Iterator<E> {
     @Override
     public boolean hasNext() {
         if (!valueReady) {
-            try {
-                next = fn.advance(state);
-                valueReady = true;
-            } catch (GeneratorComplete e) {
-                valueReady = false;
-            }
+            next = fn.advance(state);
+            valueReady = next != InternalUtil.GENERATOR_COMPLETE;
         }
         return valueReady;
     }

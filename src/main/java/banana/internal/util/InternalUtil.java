@@ -5,6 +5,11 @@ package banana.internal.util;
  * are highly specialized, and are not likely to be useful outside of compiler generated code.
  */
 public class InternalUtil {
+    static final Object GENERATOR_COMPLETE = new Object();
+
+    private InternalUtil() {
+    }
+
     /**
      * Throws an NPE with source code information to help pinpoint the error. This method returns a
      * NullPointerException so that the compiler generated code can use an athrow after calling this method to indicate
@@ -18,7 +23,7 @@ public class InternalUtil {
         return new IterableFromIterator<>(new GeneratorIterator<>(gen));
     }
 
-    public static void $generatorComplete() {
-        throw new GeneratorComplete();
+    public static Object $generatorComplete() {
+        return GENERATOR_COMPLETE;
     }
 }
