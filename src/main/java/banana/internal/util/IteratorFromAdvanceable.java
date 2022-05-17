@@ -8,12 +8,8 @@ public final class IteratorFromAdvanceable<E> implements Iterator<E> {
     private boolean valueReady;
     private E next;
 
-    private IteratorFromAdvanceable(AdvanceableIterator<E> iterator) {
+    public IteratorFromAdvanceable(AdvanceableIterator<E> iterator) {
         this.iterator = iterator;
-    }
-
-    public static <E> IteratorFromAdvanceable<E> create(AdvanceableIterator<E> iterator) {
-        return new IteratorFromAdvanceable<>(iterator);
     }
 
     @Override

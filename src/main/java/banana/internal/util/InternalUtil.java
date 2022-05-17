@@ -15,6 +15,6 @@ public class InternalUtil {
     }
 
     public static <E> Iterable<E> $createGenerator(AdvanceableIterator<E> gen) {
-        return IterableFromIterator.create(IteratorFromAdvanceable.create(gen));
+        return new IterableFromIterator<>(new IteratorFromAdvanceable<>(gen));
     }
 }
