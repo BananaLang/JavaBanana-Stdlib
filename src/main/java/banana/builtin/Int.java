@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import banana.internal.annotation.NonNull;
 
 public final class Int extends Number {
-    private static final Int[] INTERNED;
+    public static final Int[] $INTERNED;
     private static final BigInteger
         INT_MIN = BigInteger.valueOf(Integer.MIN_VALUE),
         INT_MAX = BigInteger.valueOf(Integer.MAX_VALUE);
@@ -13,11 +13,11 @@ public final class Int extends Number {
     private static Int biCache1, biCache2;
 
     static {
-        INTERNED = new Int[256];
+        $INTERNED = new Int[256];
         for (int i = -128; i < 128; i++) {
-            INTERNED[i + 128] = new Int(i);
+            $INTERNED[i + 128] = new Int(i);
         }
-        iCache1 = iCache2 = INTERNED[128];
+        iCache1 = iCache2 = $INTERNED[128];
         biCache1 = biCache2 = new Int(BigInteger.ZERO);
     }
 
@@ -45,7 +45,7 @@ public final class Int extends Number {
     @NonNull
     public static Int valueOf(int value) {
         if (value >= -128 && value < 128) {
-            return INTERNED[value + 128];
+            return $INTERNED[value + 128];
         }
         if (value == iCache1.iValue) {
             return iCache1;
