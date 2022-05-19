@@ -117,6 +117,10 @@ public final class Int extends Number {
         return valueOf(toBigInteger().shiftRight(other.iValue));
     }
 
+    public boolean truthy() {
+        return biValue != null || iValue != 0;
+    }
+
     @Override
     public int intValue() {
         return biValue == null ? iValue : biValue.intValue();
