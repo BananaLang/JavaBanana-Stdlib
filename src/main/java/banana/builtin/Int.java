@@ -48,6 +48,13 @@ public final class Int extends Number {
         return iCache1 = new Int(value);
     }
 
+    public static Int valueOf(long value) {
+        if (value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE) {
+            return valueOf((int)value);
+        }
+        return valueOf(BigInteger.valueOf(value));
+    }
+
     public static Int valueOf(BigInteger value) {
         if (value.compareTo(INT_MIN) >= 0 && value.compareTo(INT_MAX) <= 0) {
             return valueOf(value.intValue());
@@ -62,6 +69,52 @@ public final class Int extends Number {
         }
         biCache2 = biCache1;
         return biCache1 = new Int(value);
+    }
+
+    public Int add(Int other) {
+        return valueOf(toBigInteger().add(other.toBigInteger()));
+    }
+
+    public Int subtract(Int other) {
+        return valueOf(toBigInteger().subtract(other.toBigInteger()));
+    }
+
+    public Int multiply(Int other) {
+        return valueOf(toBigInteger().multiply(other.toBigInteger()));
+    }
+
+    public Int divide(Int other) {
+        return valueOf(toBigInteger().divide(other.toBigInteger()));
+    }
+
+    public Int remainder(Int other) {
+        return valueOf(toBigInteger().remainder(other.toBigInteger()));
+    }
+
+    public Int or(Int other) {
+        return valueOf(toBigInteger().or(other.toBigInteger()));
+    }
+
+    public Int xor(Int other) {
+        return valueOf(toBigInteger().xor(other.toBigInteger()));
+    }
+
+    public Int and(Int other) {
+        return valueOf(toBigInteger().and(other.toBigInteger()));
+    }
+
+    public Int shiftLeft(Int other) {
+        if (other.biValue != null) {
+            throw new IllegalArgumentException("<< RHS must be -2147483648 <= n <= 2147483647");
+        }
+        return valueOf(toBigInteger().shiftLeft(other.iValue));
+    }
+
+    public Int shiftRight(Int other) {
+        if (other.biValue != null) {
+            throw new IllegalArgumentException(">> RHS must be -2147483648 <= n <= 2147483647");
+        }
+        return valueOf(toBigInteger().shiftRight(other.iValue));
     }
 
     @Override
@@ -82,6 +135,10 @@ public final class Int extends Number {
     @Override
     public double doubleValue() {
         return biValue == null ? iValue : biValue.doubleValue();
+    }
+
+    public BigInteger toBigInteger() {
+        return biValue != null ? biValue : BigInteger.valueOf(iValue);
     }
 
     @Override
