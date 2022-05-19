@@ -9,6 +9,6 @@ public class StdlibTest {
         ThreadLocalRandom rand = ThreadLocalRandom.current();
         Int a = Int.valueOf(rand.nextLong());
         Int b = Int.valueOf(rand.nextLong());
-        System.out.println(a.shiftLeft(b));
+        System.out.println(a.add(b).longValueExact());
     }
 }

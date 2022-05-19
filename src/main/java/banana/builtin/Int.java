@@ -35,6 +35,14 @@ public final class Int extends Number {
     }
 
     @NonNull
+    public static Int valueOf(long value) {
+        if (value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE) {
+            return valueOf((int)value);
+        }
+        return valueOf(BigInteger.valueOf(value));
+    }
+
+    @NonNull
     public static Int valueOf(int value) {
         if (value >= -128 && value < 128) {
             return INTERNED[value + 128];
@@ -49,14 +57,6 @@ public final class Int extends Number {
         }
         iCache2 = iCache1;
         return iCache1 = new Int(value);
-    }
-
-    @NonNull
-    public static Int valueOf(long value) {
-        if (value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE) {
-            return valueOf((int)value);
-        }
-        return valueOf(BigInteger.valueOf(value));
     }
 
     @NonNull
@@ -139,6 +139,17 @@ public final class Int extends Number {
     @Override
     public int intValue() {
         return biValue == null ? iValue : biValue.intValue();
+    }
+
+    public int intValueExact() {
+        if (biValue != null) {
+            throw new ArithmeticException("Int requires more that 32 bits to represent");
+        }
+        return iValue;
+    }
+
+    public long longValueExact() {
+        return biValue == null ? iValue : biValue.longValueExact();
     }
 
     @Override
