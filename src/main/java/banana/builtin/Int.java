@@ -2,6 +2,8 @@ package banana.builtin;
 
 import java.math.BigInteger;
 
+import banana.internal.annotation.NonNull;
+
 public final class Int extends Number {
     private static final Int[] INTERNED;
     private static final BigInteger
@@ -32,6 +34,7 @@ public final class Int extends Number {
         biValue = value;
     }
 
+    @NonNull
     public static Int valueOf(int value) {
         if (value >= -128 && value < 128) {
             return INTERNED[value + 128];
@@ -48,6 +51,7 @@ public final class Int extends Number {
         return iCache1 = new Int(value);
     }
 
+    @NonNull
     public static Int valueOf(long value) {
         if (value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE) {
             return valueOf((int)value);
@@ -55,7 +59,8 @@ public final class Int extends Number {
         return valueOf(BigInteger.valueOf(value));
     }
 
-    public static Int valueOf(BigInteger value) {
+    @NonNull
+    public static Int valueOf(@NonNull BigInteger value) {
         if (value.compareTo(INT_MIN) >= 0 && value.compareTo(INT_MAX) <= 0) {
             return valueOf(value.intValue());
         }
@@ -71,46 +76,56 @@ public final class Int extends Number {
         return biCache1 = new Int(value);
     }
 
-    public Int add(Int other) {
+    @NonNull
+    public Int add(@NonNull Int other) {
         return valueOf(toBigInteger().add(other.toBigInteger()));
     }
 
-    public Int subtract(Int other) {
+    @NonNull
+    public Int subtract(@NonNull Int other) {
         return valueOf(toBigInteger().subtract(other.toBigInteger()));
     }
 
-    public Int multiply(Int other) {
+    @NonNull
+    public Int multiply(@NonNull Int other) {
         return valueOf(toBigInteger().multiply(other.toBigInteger()));
     }
 
-    public Int divide(Int other) {
+    @NonNull
+    public Int divide(@NonNull Int other) {
         return valueOf(toBigInteger().divide(other.toBigInteger()));
     }
 
-    public Int remainder(Int other) {
+    @NonNull
+    public Int remainder(@NonNull Int other) {
         return valueOf(toBigInteger().remainder(other.toBigInteger()));
     }
 
-    public Int or(Int other) {
+    @NonNull
+    public Int or(@NonNull Int other) {
         return valueOf(toBigInteger().or(other.toBigInteger()));
     }
 
-    public Int xor(Int other) {
+    @NonNull
+    public Int xor(@NonNull Int other) {
         return valueOf(toBigInteger().xor(other.toBigInteger()));
     }
 
-    public Int and(Int other) {
+    @NonNull
+    public Int and(@NonNull Int other) {
         return valueOf(toBigInteger().and(other.toBigInteger()));
     }
 
-    public Int shiftLeft(Int other) {
+    @NonNull
+    public Int shiftLeft(@NonNull Int other) {
         if (other.biValue != null) {
             throw new IllegalArgumentException("<< RHS must be -2147483648 <= n <= 2147483647");
         }
         return valueOf(toBigInteger().shiftLeft(other.iValue));
     }
 
-    public Int shiftRight(Int other) {
+    @NonNull
+    public Int shiftRight(@NonNull Int other) {
         if (other.biValue != null) {
             throw new IllegalArgumentException(">> RHS must be -2147483648 <= n <= 2147483647");
         }
@@ -146,6 +161,7 @@ public final class Int extends Number {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return biValue == null ? Integer.toString(iValue) : biValue.toString();
     }
