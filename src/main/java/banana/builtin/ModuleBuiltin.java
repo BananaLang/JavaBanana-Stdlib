@@ -3,9 +3,11 @@ package banana.builtin;
 import banana.internal.annotation.BananaModule;
 import banana.internal.annotation.NonNull;
 import banana.internal.annotation.Nullable;
+import banana.internal.util.InternalUtil;
 
 @BananaModule(
     exportedClasses = {
+        FormatString.class,
         Int.class,
         Int32.class
     },
@@ -102,5 +104,10 @@ public final class ModuleBuiltin {
 
     public static void println(@Nullable Object x) {
         System.out.println(x);
+    }
+
+    @NonNull
+    public static FormatString formatString(@NonNull String[] stringValues, @NonNull Object[] objectValues) {
+        return InternalUtil.$untrustedFormatString(stringValues, objectValues);
     }
 }

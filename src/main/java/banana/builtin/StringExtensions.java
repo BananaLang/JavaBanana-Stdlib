@@ -6,6 +6,7 @@ import java.util.Arrays;
 import banana.internal.annotation.ExtensionMethod;
 import banana.internal.annotation.NonNull;
 import banana.internal.annotation.Nullable;
+import banana.internal.util.InternalUtil;
 
 public final class StringExtensions {
     private StringExtensions() {
@@ -13,13 +14,13 @@ public final class StringExtensions {
 
     @ExtensionMethod
     @NonNull
-    public static String add(@NonNull String thiz, @Nullable Object other) {
+    public static String add(@NonNull final String thiz, @Nullable Object other) {
         return thiz.concat(String.valueOf(other));
     }
 
     @ExtensionMethod
     @NonNull
-    public static String multiply(@NonNull String thiz, int count) {
+    public static String multiply(@NonNull final String thiz, int count) {
         if (count < 0) {
             throw new IllegalArgumentException("count is negative: " + count);
         }
@@ -50,5 +51,11 @@ public final class StringExtensions {
             result.append(thiz);
         }
         return result.toString();
+    }
+
+    @ExtensionMethod
+    @NonNull
+    public static FormatString toFormatString(@NonNull final String thiz) {
+        return InternalUtil.$trustedFormatString(new String[] {thiz}, InternalUtil.$EMPTY_OBJECT_ARRAY);
     }
 }

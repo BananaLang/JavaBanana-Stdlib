@@ -1,10 +1,13 @@
 package banana.internal.util;
 
+import banana.builtin.FormatString;
+
 /**
  * All public methods in this class start with a $ to prevent being called from BananaLang. The methods in this class
  * are highly specialized, and are not likely to be useful outside of compiler generated code.
  */
 public class InternalUtil {
+    public static final Object[] $EMPTY_OBJECT_ARRAY = new Object[0];
     static final Object GENERATOR_COMPLETE = new Object();
 
     private InternalUtil() {
@@ -25,5 +28,16 @@ public class InternalUtil {
 
     public static Object $generatorComplete() {
         return GENERATOR_COMPLETE;
+    }
+
+    public static FormatString $untrustedFormatString(String[] stringValues, Object[] objectValues) {
+        if (stringValues.length != objectValues.length + 1) {
+            throw new IllegalArgumentException("Format string argument length mismatch");
+        }
+        return new FormatStringImpl(stringValues.clone(), objectValues != null ? objectValues.clone() : $EMPTY_OBJECT_ARRAY);
+    }
+
+    public static FormatString $trustedFormatString(String[] stringValues, Object[] objectValues) {
+        return new FormatStringImpl(stringValues, objectValues);
     }
 }
